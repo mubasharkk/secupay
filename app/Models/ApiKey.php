@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ZeitraumScope;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Ramsey\Uuid\Uuid;
 
 class ApiKey extends Model
@@ -21,4 +24,9 @@ class ApiKey extends Model
     protected $casts = [
         'timestamp' => \Carbon\Carbon::class
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new ZeitraumScope);
+    }
 }

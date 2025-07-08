@@ -3,11 +3,23 @@
 namespace App\Services;
 
 use App\Models\ApiKey;
+use Illuminate\Support\Carbon;
 
 class AuthenticatorService
 {
-    public function authenticate(string $apiKey): bool
+    public function authenticate(string $apiKey, bool $onlyMasterKey = false): bool
     {
-        return ApiKey::where('apikey', $apiKey)->exists();
+        $currentTime = Carbon::now();
+
+        $query = ApiKey::where('apikey', $apiKey)
+            ->where('von', '<=', $currentTime)
+            ->where('bis', '>=', $currentTime)
+            ->orWhere('ist_masterkey', '<=', $currentTime);
+
+        if ($onlyMasterKey) {
+            $query = $query->where('ist_masterkey', 1);
+        }
+
+        return $query->exists();
     }
 }
