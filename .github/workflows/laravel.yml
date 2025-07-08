@@ -38,6 +38,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Check MySQL Logs
+      run: /usr/bin/docker ps
     - name: Install PHP versions
       uses: shivammathur/setup-php@v2
       with:
@@ -71,8 +73,6 @@ jobs:
     - name: Update Dependencies with lowest stable
       if: matrix.dependency-stability == 'prefer-lowest'
       run: composer update --prefer-stable --prefer-lowest
-    - name: Update Dependencies with lowest stable
-      run: bash ./database/sql/mysql-init.sh
 
     - name: Generate key
       run: php artisan key:generate
@@ -81,12 +81,16 @@ jobs:
     - name: Run Migrations
 # Set environment
       env:
+        DB_HOST: 0.0.0.0
         DB_CONNECTION: mysql
         DB_DATABASE: laravel
         DB_PORT: 33306
         DB_USER: root
 
       run: php artisan migrate
+
+    - name: Run MySQL Initialization Script
+      run: bash ./database/sql/mysql-init.sh
 
     - name: Show dir
       run: pwd
@@ -97,6 +101,7 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit
 # Set environment
       env:
+        DB_HOST: 0.0.0.0
         DB_CONNECTION: mysql
         DB_DATABASE: laravel
         DB_PORT: 33306
