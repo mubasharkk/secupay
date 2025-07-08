@@ -15,7 +15,7 @@ Copy `.env.example` to `.env`
 cp .env.example .env
 ```
 
-To avoid port conflicts, please update the following .env variables accordingly.
+To avoid PORT(s) conflicts, please update the following .env variables accordingly.
 
 ```shell
 #whatever suits your machine bettern
@@ -43,3 +43,10 @@ For ease, I have already added these values as default.
 ./vendor/bin/sail artisan key:generate
 ```
 
+#### Setup database
+
+Import provided database by Secupay
+
+```shell
+./vendor/bin/sail shell /sql/mysql-init.sh
+```
