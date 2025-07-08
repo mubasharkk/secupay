@@ -103,9 +103,9 @@ jobs:
     - name: PHP Version
       run: php --version
 
-# Code quality
+    # Code quality
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-# Set environment
+      # Set environment
       env:
         DB_HOST: 0.0.0.0
         DB_CONNECTION: mysql
