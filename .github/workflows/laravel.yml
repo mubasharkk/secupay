@@ -1,6 +1,6 @@
 # GithHub Actions Workflow generated with Ghygen
 # Original configuration: https://ghygen.hi-folks.dev?code=97eee649aafa82d5f8c64ef6b21ec802
-name: Template - Laravel application (Mysql)
+name: Laravel Secupay Application (Mysql)
 on:
   push:
     branches:
