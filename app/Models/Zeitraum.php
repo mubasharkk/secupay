@@ -5,7 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class Zeittraum extends Model
+class Zeitraum extends Model
 {
 
     protected $table = 'vorgaben_zeitraum';

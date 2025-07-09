@@ -12,3 +12,7 @@ Route::apiResource('/transactions', \App\Http\Controllers\Api\TransactionsContro
     ->only(['index', 'update'])
     ->middleware(\App\Http\Middleware\AuthenticateApiKey::class);
 
+Route::apiResource('/flagbits', \App\Http\Controllers\Api\FlagbitsController::class)
+    ->only(['index', 'show', 'update'])
+    ->middleware(\App\Http\Middleware\AuthenticateApiKey::class);
+

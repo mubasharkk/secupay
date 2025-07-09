@@ -11,10 +11,6 @@ class FlagbitRef extends Model
     protected $table = 'stamd_flagbit_ref';
 
 
-    protected $casts = [
-        ''
-    ];
-
     protected static function booted()
     {
         static::addGlobalScope(new ZeitraumScope);
@@ -22,7 +18,11 @@ class FlagbitRef extends Model
 
     public function flagbit(): HasOne
     {
-        return $this->hasOne(Flagbit::class, 'flagbit', 'flagbit_id');
+        return $this->hasOne(Flagbit::class, 'flagbit_id', 'flagbit');
     }
 
+    public function dataSetType(): HasOne
+    {
+        return $this->hasOne(DataSetType::class, 'datensatz_typ_id', 'datensatz_typ_id');
+    }
 }

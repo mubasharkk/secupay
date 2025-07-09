@@ -17,4 +17,12 @@ class DataFlag
     const TRANSACTION_FLAG_LVP = 13; // Transaction was created with Low Value Payment Flag for Transact
     const TRANSACTION_FLAG_TRA = 14; // Transaction was created with Transaction Risk Analyze Flag for Transact
     const TRANSACTION_FLAG_MIT = 15; // Transaction was merchant initiated
+
+    public static function getConstantNameById($id)
+    {
+        $constants = (new ReflectionClass(self::class))->getConstants();
+        $name = array_search($id, $constants);
+
+        return $name !== false ? $name : null; // Return null if no constant matches the ID
+    }
 }
