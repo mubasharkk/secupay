@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Services;
+
 class DataFlag
 {
     const TRANSACTION_FLAG_CLEARING = 1; // 0 = Direct, 1 = Accounting
@@ -20,7 +22,7 @@ class DataFlag
 
     public static function getConstantNameById($id)
     {
-        $constants = (new ReflectionClass(self::class))->getConstants();
+        $constants = (new \ReflectionClass(self::class))->getConstants();
         $name = array_search($id, $constants);
 
         return $name !== false ? $name : null; // Return null if no constant matches the ID
