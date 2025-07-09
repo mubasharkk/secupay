@@ -10,6 +10,8 @@ class Zeittraum extends Model
 
     protected $table = 'vorgaben_zeitraum';
 
+    protected $primaryKey = 'zeitraum_id';
+
     protected $fillable = [
         'von',
         'bis'

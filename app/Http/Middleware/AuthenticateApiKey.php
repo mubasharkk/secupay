@@ -19,9 +19,20 @@ class AuthenticateApiKey
     {
         $service = app(AuthenticatorService::class);
 
-        if (!$service->authenticate($request->get('access_token'))) {
+        $accessToken = $request->bearerToken();
+
+        if (!$accessToken) {
+            throw new AuthenticationError('Access token required to access this endpoint.', Response::HTTP_UNAUTHORIZED);
+        }
+
+
+        if (!$service->authenticate($accessToken)) {
             throw new AuthenticationError('Invalid API key provided.', Response::HTTP_UNAUTHORIZED);
         }
+
+        $apiKey = $service->getApiKey($accessToken);
+
+        $request->{'user'} = $apiKey->user;
 
         return $next($request);
     }

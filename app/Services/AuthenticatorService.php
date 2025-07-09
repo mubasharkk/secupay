@@ -22,4 +22,10 @@ class AuthenticatorService
 
         return $query->exists();
     }
+
+    public function getApikey(string $apiKey): ?ApiKey
+    {
+        return ApiKey::where('apikey', $apiKey)->with('user')->first();
+    }
+
 }
