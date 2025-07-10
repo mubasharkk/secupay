@@ -6,6 +6,7 @@ use App\Models\FlagbitRef;
 use App\Models\Transaction;
 use App\Models\Zeitraum;
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
 class DomainService
@@ -31,16 +32,36 @@ class DomainService
 
     public function getFlagbits(): Collection
     {
-        return FlagbitRef::with(['flagbit', 'dataSetType'])->get();
+        return FlagbitRef::with(['flagbit', 'datensatzTyp'])->get();
+    }
+
+    private function getFlatbitsTransactionsQuery(): Builder
+    {
+        return FlagbitRef::with(['flagbit', 'datensatzTyp'])
+            ->join('vorgaben_datensatz_typ', 'vorgaben_datensatz_typ.datensatz_typ_id', '=', 'stamd_flagbit_ref.datensatz_typ_id')
+            ->select(['stamd_flagbit_ref.*', 'transaktion_transaktionen.*', 'vertragsverw_vertrag.*'])
+            ->leftJoin('transaktion_transaktionen', 'transaktion_transaktionen.trans_id', '=', 'stamd_flagbit_ref.datensatz_id')
+            ->leftJoin('vertragsverw_vertrag', 'vertragsverw_vertrag.vertrag_id', '=', 'transaktion_transaktionen.vertrag_id');
     }
 
     public function getFlatbitsByTransactionId(int $transactionId): FlagbitRef
     {
-        return FlagbitRef::with(['flagbit', 'dataSetType'])
-            ->join('vorgaben_datensatz_typ', 'vorgaben_datensatz_typ.datensatz_typ_id', '=', 'stamd_flagbit_ref.datensatz_typ_id')
+        return $this->getFlatbitsTransactionsQuery()
             ->where(['datensatz_id' => $transactionId, 'vorgaben_datensatz_typ.beschreibung' => 'trans_id'])
-            ->select('stamd_flagbit_ref.*')
             ->firstOrFail();
+    }
+
+    public function getFlatbitsByUser(int $userId, ?int $transactionId = null): Collection
+    {
+        return $this->getFlatbitsTransactionsQuery()
+            ->where(
+                array_filter([
+                    'datensatz_id'                        => $transactionId,
+                    'vorgaben_datensatz_typ.beschreibung' => 'trans_id',
+                    'vertragsverw_vertrag.nutzer_id'      => $userId
+                ])
+            )
+            ->get();
     }
 
 }

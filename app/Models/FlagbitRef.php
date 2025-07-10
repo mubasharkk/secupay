@@ -21,7 +21,7 @@ class FlagbitRef extends Model
         return $this->hasOne(Flagbit::class, 'flagbit_id', 'flagbit');
     }
 
-    public function dataSetType(): HasOne
+    public function datensatzTyp(): HasOne
     {
         return $this->hasOne(DataSetType::class, 'datensatz_typ_id', 'datensatz_typ_id');
     }

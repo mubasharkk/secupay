@@ -18,7 +18,7 @@ class FlagbitsController extends Controller
     public function index(Request $request)
     {
         return FlagBitResource::collection(
-            $this->domainService->getFlagbits()
+            $this->domainService->getFlatbitsByUser($request->user->nutzerdetails_id)
         );
     }
 
