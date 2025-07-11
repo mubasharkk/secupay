@@ -16,7 +16,8 @@ class CommandStartTestListener
         if ($event->command === 'test') {
             echo "Importing database" . PHP_EOL;
 
-            $result = Process::run('DB_DATABASE=testing bash ./database/sql/mysql-init.sh');
+            $database = env('DB_DATABASE', 'laravel');
+            $result = Process::run("DB_DATABASE={$database} bash ./database/sql/mysql-init.sh");
 
             // Command output
             echo $result->output() . PHP_EOL;
