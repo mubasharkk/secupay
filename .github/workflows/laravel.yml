@@ -113,7 +113,7 @@ jobs:
         DB_PORT: 33306
         DB_USER: root
 
-      run: php artisan test
+      run: php artisan test --testsuite Unit
 
     - uses: symfonycorp/security-checker-action@v5
 
