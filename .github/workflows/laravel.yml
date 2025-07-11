@@ -97,7 +97,6 @@ jobs:
         DB_DATABASE: laravel
         DB_PORT: 33306
         DB_USER: root
-        DB_PASSWORD:
 
     - name: Show dir
       run: pwd

@@ -28,7 +28,14 @@ fi
 # Run your SQL script every time
 echo "Running db_export.sql : import data to database ${DB_DATABASE}..."
 
-mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" -P "$DB_PORT" "$DB_DATABASE" < "${PWD}/database/sql/db_export.sql"
+# Build password option only if DB_PASSWORD is not empty
+if [ -n "$DB_PASSWORD" ]; then
+    MYSQL_PWD_OPT="-p$DB_PASSWORD"
+else
+    MYSQL_PWD_OPT=""
+fi
+
+mysql -h "$DB_HOST" -u "$DB_USER" $MYSQL_PWD_OPT -P "$DB_PORT" "$DB_DATABASE" < "${PWD}/database/sql/db_export.sql"
 
 #!/bin/bash
 
