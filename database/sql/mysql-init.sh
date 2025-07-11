@@ -28,7 +28,7 @@ fi
 # Run your SQL script every time
 echo "Running db_export.sql : import data to database ${DB_DATABASE}..."
 
-mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" -P "$DB_PORT" "$DB_DATABASE" < "${PWD}/database/sql/db_export.sql"
+mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" -P "$DB_PORT" "$DB_DATABASE" < "${PWD}/sql/db_export.sql"
 
 # Call original entrypoint command
 exec "$@"
