@@ -15,7 +15,7 @@ class AuthenticateApiKey
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ?string $type = null): Response
     {
         $service = app(AuthenticatorService::class);
 
@@ -26,7 +26,7 @@ class AuthenticateApiKey
         }
 
 
-        if (!$service->authenticate($accessToken)) {
+        if (!$service->authenticate($accessToken, $type == 'master')) {
             throw new AuthenticationError('Invalid API key provided.', Response::HTTP_UNAUTHORIZED);
         }
 

@@ -64,4 +64,25 @@ class DomainService
             ->get();
     }
 
+    public function updateFlatbits(int $datesatzTypeId, int $datesatzId, int $flatbit, int $modus, int $creatorId): bool
+    {
+        \DB::statement(
+            "call stamd_aendern_erstellen_flagbit_ref(?, ?, ?, ?, ?, @OUT_fehler_code, @OUT_fehler)",
+            [$datesatzTypeId, $datesatzId, $flatbit, $modus, $creatorId]
+        );
+
+        $result = \DB::select('SELECT @OUT_fehler_code AS error_code, @OUT_fehler AS `error_message`');
+
+        if ($result[0]->error_code) {
+            throw new \Exception($result[0]->error_message, $result[0]->error_code);
+        }
+
+        return true;
+    }
+
+    public function removeFlagbit($refId)
+    {
+        return FlagbitRef::destroy($refId);
+    }
+
 }

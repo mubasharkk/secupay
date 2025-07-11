@@ -10,6 +10,7 @@ class FlagbitRef extends Model
 {
     protected $table = 'stamd_flagbit_ref';
 
+    protected $primaryKey = 'flagbit_ref_id';
 
     protected static function booted()
     {

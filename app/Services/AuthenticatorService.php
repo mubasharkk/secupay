@@ -13,11 +13,10 @@ class AuthenticatorService
 
         $query = ApiKey::where('apikey', $apiKey)
             ->where('von', '<=', $currentTime)
-            ->where('bis', '>=', $currentTime)
-            ->orWhere('ist_masterkey', '<=', $currentTime);
+            ->where('bis', '>=', $currentTime);
 
         if ($onlyMasterKey) {
-            $query = $query->where('ist_masterkey', 1);
+            $query = $query->where(['ist_masterkey' => 1]);
         }
 
         return $query->exists();
