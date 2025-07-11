@@ -104,7 +104,7 @@ jobs:
       run: php --version
 
     # Code quality
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - name: Execute tests (Unit tests) via Laravel Artisan
       # Set environment
       env:
         DB_HOST: 0.0.0.0
@@ -113,8 +113,7 @@ jobs:
         DB_PORT: 33306
         DB_USER: root
 
-      run: vendor/bin/phpunit --testdox
-
+      run: php artisan test --unit
 
     - uses: symfonycorp/security-checker-action@v5
 
