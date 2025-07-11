@@ -9,10 +9,8 @@ use Illuminate\Http\Request;
 
 class FlagbitsController extends Controller
 {
-
     public function __construct(private DomainService $domainService)
     {
-
     }
 
     public function index(Request $request)

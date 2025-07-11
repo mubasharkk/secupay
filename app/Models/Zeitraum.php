@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Zeitraum extends Model
 {
-
     protected $table = 'vorgaben_zeitraum';
 
     protected $primaryKey = 'zeitraum_id';

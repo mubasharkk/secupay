@@ -14,7 +14,7 @@ class FlagbitRef extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope(new ZeitraumScope);
+        static::addGlobalScope(new ZeitraumScope());
     }
 
     public function flagbit(): HasOne

@@ -8,7 +8,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class FlagBitResource extends JsonResource
 {
-
     public static $wrap = null;
 
     /**
@@ -20,7 +19,8 @@ class FlagBitResource extends JsonResource
     {
         $data = parent::toArray($request);
 
-        $data['flagbit_name'] = DataFlag::getConstantNameById($this->flagbit);
+        /* @phpstan-ignore variable.undefined */
+        $data['flagbit_name'] = DataFlag::getConstantNameById($this->flagbit); // @phpstan-ignore-line
 
         return $data;
     }

@@ -7,7 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ContractResource extends JsonResource
 {
-
     public static $wrap = null;
 
     /**
@@ -23,7 +22,8 @@ class ContractResource extends JsonResource
 
         unset($data['von'], $data['bis']);
 
-        $data['nutzer'] = $this->user;
+        /* @phpstan-ignore variable.undefined */
+        $data['nutzer'] = $this->user; // @phpstan-ignore-line
 
         return $data;
     }

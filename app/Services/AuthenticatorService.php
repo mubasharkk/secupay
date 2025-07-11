@@ -26,5 +26,4 @@ class AuthenticatorService
     {
         return ApiKey::where('apikey', $apiKey)->with('user')->first();
     }
-
 }

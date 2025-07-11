@@ -25,7 +25,12 @@ class DomainService
 
     public function getTransactionsByUser(int $userId, ?int $transactionId = null): Collection
     {
-        return Transaction::join('vertragsverw_vertrag', 'vertragsverw_vertrag.vertrag_id', '=', 'transaktion_transaktionen.vertrag_id')
+        return Transaction::join(
+            'vertragsverw_vertrag',
+            'vertragsverw_vertrag.vertrag_id',
+            '=',
+            'transaktion_transaktionen.vertrag_id'
+        )
             ->where(array_filter(['nutzer_id' => $userId, 'trans_id' => $transactionId]))
             ->get();
     }
@@ -38,10 +43,25 @@ class DomainService
     private function getFlatbitsTransactionsQuery(): Builder
     {
         return FlagbitRef::with(['flagbit', 'datensatzTyp'])
-            ->join('vorgaben_datensatz_typ', 'vorgaben_datensatz_typ.datensatz_typ_id', '=', 'stamd_flagbit_ref.datensatz_typ_id')
+            ->join(
+                'vorgaben_datensatz_typ',
+                'vorgaben_datensatz_typ.datensatz_typ_id',
+                '=',
+                'stamd_flagbit_ref.datensatz_typ_id'
+            )
             ->select(['stamd_flagbit_ref.*', 'transaktion_transaktionen.*', 'vertragsverw_vertrag.*'])
-            ->leftJoin('transaktion_transaktionen', 'transaktion_transaktionen.trans_id', '=', 'stamd_flagbit_ref.datensatz_id')
-            ->leftJoin('vertragsverw_vertrag', 'vertragsverw_vertrag.vertrag_id', '=', 'transaktion_transaktionen.vertrag_id');
+            ->leftJoin(
+                'transaktion_transaktionen',
+                'transaktion_transaktionen.trans_id',
+                '=',
+                'stamd_flagbit_ref.datensatz_id'
+            )
+            ->leftJoin(
+                'vertragsverw_vertrag',
+                'vertragsverw_vertrag.vertrag_id',
+                '=',
+                'transaktion_transaktionen.vertrag_id'
+            );
     }
 
     public function getFlatbitsByTransactionId(int $transactionId): FlagbitRef
@@ -84,5 +104,4 @@ class DomainService
     {
         return FlagbitRef::destroy($refId);
     }
-
 }

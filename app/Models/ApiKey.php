@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Scopes\ZeitraumScope;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
@@ -28,7 +27,7 @@ class ApiKey extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope(new ZeitraumScope);
+        static::addGlobalScope(new ZeitraumScope());
     }
 
     public function user(): HasOneThrough
@@ -47,5 +46,4 @@ class ApiKey extends Model
     {
         return $this->hasOne(Contract::class, 'vertrag_id', 'vertrags_id');
     }
-
 }

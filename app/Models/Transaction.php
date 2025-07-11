@@ -29,5 +29,4 @@ class Transaction extends Model
             'vertrag_id'
         );
     }
-
 }

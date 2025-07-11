@@ -11,7 +11,6 @@ class TransactionsController extends Controller
 {
     public function __construct(private DomainService $domainService)
     {
-
     }
 
     public function index(Request $request)

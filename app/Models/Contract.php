@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Scopes\ZeitraumScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Contract extends Model
 {
@@ -28,12 +27,11 @@ class Contract extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope(new ZeitraumScope);
+        static::addGlobalScope(new ZeitraumScope());
     }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'nutzer_id', 'nutzerdetails_id');
     }
-
 }

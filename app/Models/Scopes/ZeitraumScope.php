@@ -13,6 +13,11 @@ class ZeitraumScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->leftJoin('vorgaben_zeitraum', 'vorgaben_zeitraum.zeitraum_id', '=', $model->getTable(). '.zeitraum_id');
+        $builder->leftJoin(
+            'vorgaben_zeitraum',
+            'vorgaben_zeitraum.zeitraum_id',
+            '=',
+            $model->getTable() . '.zeitraum_id'
+        );
     }
 }

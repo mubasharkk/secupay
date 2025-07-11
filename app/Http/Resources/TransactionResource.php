@@ -7,7 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class TransactionResource extends JsonResource
 {
-
     public static $wrap = null;
 
     /**
@@ -19,7 +18,8 @@ class TransactionResource extends JsonResource
     {
         $data = parent::toArray($request);
 
-        $data['vertrag'] = new ContractResource($this->contract);
+        /* @phpstan-ignore variable.undefined */
+        $data['vertrag'] = new ContractResource($this->contract); // @phpstan-ignore-line
 
         return $data;
     }

@@ -22,9 +22,11 @@ class AuthenticateApiKey
         $accessToken = $request->bearerToken();
 
         if (!$accessToken) {
-            throw new AuthenticationError('Access token required to access this endpoint.', Response::HTTP_UNAUTHORIZED);
+            throw new AuthenticationError(
+                'Access token required to access this endpoint.',
+                Response::HTTP_UNAUTHORIZED
+            );
         }
-
 
         if (!$service->authenticate($accessToken, $type == 'master')) {
             throw new AuthenticationError('Invalid API key provided.', Response::HTTP_UNAUTHORIZED);

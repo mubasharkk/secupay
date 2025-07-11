@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+// phpcs:ignoreFile
 class DataFlag
 {
     const TRANSACTION_FLAG_CLEARING = 1; // 0 = Direct, 1 = Accounting
