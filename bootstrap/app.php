@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\AuthenticationError;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
         //$middleware->append(\App\Http\Middleware\AuthenticateApiKey::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
+        $exceptions->render(function (AuthenticationError $e, Request $request) {
+            return response()->json(['error' => $e->getMessage()], $e->getCode());
+        });
 
         $exceptions->shouldRenderJsonWhen(function (Request $request, Throwable $e) {
             if ($request->is('api/*')) {
